@@ -5,7 +5,7 @@
   </aside>
   <section class="splitview__content">
     <ng-container *ngIf="appState$ | async as state">
-      <div *ngIf="!state.loading">Searching...</div>
+      <div *ngIf="state.loading">Searching...</div>
       <div *ngIf="state.data && !state.data.length">No results found...</div>
       <div class="resultsGrid" *ngIf="state.data && state.data.length > 0">
         <ng-container *ngFor="let item of state.data">

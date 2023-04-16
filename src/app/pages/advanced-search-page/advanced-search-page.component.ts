@@ -7,7 +7,7 @@ import {CategoryService} from "../../repositories/category/category.service";
 import {Category} from "../../models/category.type";
 import {ProductService} from "../../repositories/product/product.service";
 import {AdvacedSearchQueryParams} from "../../models/advanced-search-query-params.type";
-import {AppState} from "../../models/app-state.type";
+import {AppState, setData, setError, setLoading} from "../../models/app-state.type";
 
 @Component({
   selector: 'app-advanced-search',
@@ -18,9 +18,9 @@ import {AppState} from "../../models/app-state.type";
 export class AdvancedSearchPageComponent {
     appState$: Observable<AppState> = this.activatedRoute.queryParams.pipe(
       switchMap((params) => this.productService.search(params as AdvacedSearchQueryParams).pipe(
-        map((value) => ({loading: false, data: value, error: null})),
-        catchError((error) => of({loading: false, error: error.message, data: []})),
-        startWith({loading: true, data: [], error: null})
+        map((value) => setData(value)),
+        catchError(error => of(setError(error.message))),
+        startWith(setLoading(true))
       ))
     );
     categories$ = this.categoryService.getAll();

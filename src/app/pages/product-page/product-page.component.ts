@@ -3,7 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {catchError, map, startWith, switchMap} from "rxjs/operators";
 import {ProductService} from "../../repositories/product/product.service";
 import {Observable, of} from "rxjs";
-import {AppState} from "../../models/app-state.type";
+import {AppState, setData, setError, setLoading} from "../../models/app-state.type";
 
 @Component({
   selector: 'app-product-page',
@@ -15,9 +15,9 @@ export class ProductPageComponent {
   appState$: Observable<AppState> = this.activatedRoute.params.pipe(
     map(params => +params['id']),
     switchMap(id => this.productService.getById(id).pipe(
-      map((value) => ({loading: false, data: value})),
-      catchError(error => of({loading: false, error: error.message})),
-      startWith({loading: true})
+      map((value) => setData(value)),
+      catchError(error => of(setError(error.message))),
+      startWith(setLoading(true))
     )),
   );
 

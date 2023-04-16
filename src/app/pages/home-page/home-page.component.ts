@@ -4,7 +4,7 @@ import {Observable, of} from "rxjs";
 import {Router} from "@angular/router";
 import {FormControl, FormGroup} from "@angular/forms";
 import {ProductService} from "../../repositories/product/product.service";
-import {AppState} from "../../models/app-state.type";
+import {AppState, setData, setError, setLoading} from "../../models/app-state.type";
 
 @Component({
   selector: 'app-home-page-component',
@@ -22,9 +22,9 @@ export class HomePageComponent {
     distinctUntilChanged(),
     switchMap((form: any) => {
       return this.productService.search(form).pipe(
-        map((value) => ({loading: false, data: value, error: null})),
-        catchError((error) => of({loading: false, error: error.message, data: []})),
-        startWith({loading: true, error: null, data: []})
+        map((value) => setData(value)),
+        catchError(error => of(setError(error.message))),
+        startWith(setLoading(true))
       );
     }),
     startWith({loading: false})
