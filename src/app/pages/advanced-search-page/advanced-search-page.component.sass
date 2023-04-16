@@ -1,56 +1,56 @@
-main
+.product
+  border: 1px solid #dddddd
   display: flex
-  section
-    &:first-child
-      border: 1px solid var(--form-element-border-color)
-      margin-right: 1rem
-      width: 30%
+  align-content: center
+  justify-content: space-between
+  flex-direction: column
+  padding: 0.5rem
+  &__footer
+    padding: 1rem
+    text-align: center
+    [role=button]
+      border-radius: 0.2rem
+      text-decoration: none
+      color: #fff
+      background-color: #1e88e5
       padding: 1rem
-    &:last-child
-      width: calc(100% - 30%)
-      .grid
-        grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr))
-        div
-          padding: 0
-          margin: 0 0 1rem
-          box-shadow: none
-          border: 1px solid var(--form-element-border-color)
-          position: relative
-          display: flex
-          flex-direction: column
-          align-items: center
-          justify-content: space-between
-          > *
-            width: 100%
-          img
-            width: 100px
-            height: 100px
-            border-radius: 50%
-            margin-bottom: 0.5rem
-          header
-            h4
-              width: calc(100%)
-              white-space: nowrap
-              overflow: hidden
-              text-overflow: ellipsis
-              margin: 0
-            margin-top: 0
-            margin-bottom: 0.5rem
-          footer
-            margin-bottom: 0
-            margin-top: 0.5rem
-          header, footer
-            padding: 1rem
-            button
-              margin: 0
-          .content
-            display: flex
-            flex-direction: column
-            justify-items: center
-            align-items: center
-
-@media (max-width: 1200px)
-  main
-    flex-direction: column
-    & > *
-      width: 100% !important
+  &__header
+    text-align: center
+    font-weight: 600
+    font-size: 1.2rem
+    padding: 0.5rem
+  &__body
+    text-align: center
+  &__image
+    width: 100px
+    height: 100px
+    border-radius: 50%
+.resultsGrid
+  display: grid
+  gap: 1rem 1rem
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr))
+  grid-auto-rows: 1fr
+.splitview
+  padding-top: 0 !important
+  &__content
+    margin-top: 1rem
+  &__sidebar
+    background-color: #f3f2f2
+    border-radius: 1rem
+    padding: 2rem
+    &__title
+      font-size: 1.5rem
+      margin: 0
+      margin-bottom: 1rem
+    form
+      display: flex
+      label
+        font-weight: 600
+      input, select
+        border: 1px solid #ddd
+        padding: 1rem
+        margin-top: 0.5rem
+      label + label
+        margin-left: 1rem
+      select > option
+        padding: 1rem

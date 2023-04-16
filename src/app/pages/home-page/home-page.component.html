@@ -8,8 +8,11 @@
     <div class="homePage__results" *ngIf="(searchResults$ | async) as results">
       <div class="homePage__results__notFound" *ngIf="!results?.length">No results found...</div>
       <ul class="homePage__results__list">
-        <li class="homePage__results__list__item" *ngFor="let result of results">
-          <a routerLink="/product/{{result.id}}">{{result.title}}</a></li>
+        <ng-container  *ngFor="let result of results">
+          <li role="link" routerLink="/product/{{result.id}}" class="homePage__results__list__item">
+            {{result.title}}
+          </li>
+        </ng-container>
       </ul>
     </div>
   </form>

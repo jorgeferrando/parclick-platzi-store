@@ -15,6 +15,6 @@ export class RestSearchService implements SearchService{
       const query = `${curr}=${params[curr as keyof AdvacedSearchQueryParams]}`;
       return [...acc, query];
     }, []).join('&');
-    return this.http.get(`https://api.escuelajs.co/api/v1/products?${queryString}`) as Observable<Product>;
+    return this.http.get(`https://api.escuelajs.co/api/v1/products/?${queryString}`) as Observable<Product>;
   }
 }

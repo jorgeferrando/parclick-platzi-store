@@ -1,43 +1,42 @@
-<main>
-  <section>
+<main class="main splitview">
+  <aside class="splitview__sidebar">
+    <h5 class="splitview__sidebar__title">Advanced Search</h5>
     <form [formGroup]="searchForm">
-      <h5>Advanced Search</h5>
       <label for="search">Title
-        <input type="text" id="search" name="search" placeholder="Search a product..." autocomplete="off" formControlName="searchTerm">
+        <input type="text" id="search" name="search" placeholder="Search a product..." autocomplete="off" formControlName="title">
       </label>
-      <div class="grid">
-        <label for="min-price">Min. Price
-          <input type="number" id="min-price" name="min-price" placeholder="Min. Price" autocomplete="off" min="0" formControlName="minPrice">
-        </label>
-        <label for="max-price">Max. Price
-          <input type="number" id="max-price" name="max-price" placeholder="Max. Price" autocomplete="off" min="0" formControlName="maxPrice">
-        </label>
-      </div>
-      <label for="category">Categories</label>
-      <select id="category" formControlName="categoryId">
-        <option value="" selected>Select a category…</option>
-        <option value="1">Category 1</option>
-        <option value="2">Category 2</option>
-        <option value="3">Category 3</option>
-      </select>
+      <label for="min-price">Min. Price
+        <input type="number" id="min-price" name="min-price" placeholder="Min. Price" autocomplete="off" min="0" formControlName="price_min">
+      </label>
+      <label for="max-price">Max. Price
+        <input type="number" id="max-price" name="max-price" placeholder="Max. Price" autocomplete="off" min="0" formControlName="price_max">
+      </label>
+      <label for="category">Categories
+        <select id="category" formControlName="categoryId">
+          <option value="" selected>Select a category…</option>
+          <option value="1">Category 1</option>
+          <option value="2">Category 2</option>
+          <option value="3">Category 3</option>
+        </select>
+      </label>
     </form>
-  </section>
-  <section>
+  </aside>
+  <section class="splitview__content">
     <ng-container *ngIf="searchResults$ | async as results">
       <div *ngIf="!results">Searching...</div>
       <div *ngIf="results && !results.length">No results found...</div>
-      <div class="grid" *ngIf="results && results.length > 0">
-        <div *ngFor="let product of results">
-          <header><h4>{{product.title}}</h4></header>
-          <div class="content">
-            <img [src]="product.images[0] | imageNotFound">
-            <p>
+      <div class="resultsGrid" *ngIf="results && results.length > 0">
+        <div class="product" *ngFor="let product of results">
+          <header class="product__header">{{product.title}}</header>
+          <div class="product__body">
+            <img class="product__image" [src]="product.images[0] | imageNotFound">
+            <p class="product__category">
               <strong>Category: </strong>Category 1
             </p>
-            <p>Price: {{product.price}} €</p>
-            <p style="padding: 0 1rem">{{product.description}}</p>
+            <p class="product__price">Price: {{product.price}} €</p>
+            <p class="product__description">{{product.description}}</p>
           </div>
-          <footer>
+          <footer class="product__footer">
             <a role="button" routerLink="/product/{{product.id}}">Product Details</a>
           </footer>
         </div>
