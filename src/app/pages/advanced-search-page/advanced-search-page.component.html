@@ -1,1 +1,12 @@
-<p>advanced-search works!</p>
+<main>
+  <section>
+    content 1
+  </section>
+  <section>
+    <ng-container *ngIf="searchResults$ | async as results">
+      <div *ngIf="!results">Searching...</div>
+      <div *ngIf="results && !results.length">No results found...</div>
+      <pre *ngIf="results && results.length > 0">{{ searchResults$ | async |json }}</pre>
+    </ng-container>
+  </section>
+</main>

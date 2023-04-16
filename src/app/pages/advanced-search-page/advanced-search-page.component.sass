@@ -1,0 +1,15 @@
+main
+  display: flex
+  section
+    border: 1px solid var(--form-element-border-color)
+    width: calc(100% - 30%)
+    padding: 1rem
+    &:first-child
+      margin-right: 1rem
+      width: 30%
+
+@media (max-width: 600px)
+  main
+    flex-direction: column
+    & > *
+      width: 100% !important
