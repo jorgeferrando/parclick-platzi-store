@@ -4,7 +4,7 @@ import {debounceTime, distinctUntilChanged, switchMap} from "rxjs/operators";
 import {SearchService} from "../../services/search.service";
 import {Observable, of} from "rxjs";
 import {Product} from "../../models/product.type";
-import {Router} from "@angular/router";
+import {NavigationExtras, Router} from "@angular/router";
 
 @Component({
   selector: 'app-home-page-component',
@@ -32,6 +32,10 @@ export class HomePageComponent implements AfterViewInit {
   }
 
   goToAdvancedSearch() {
-    this.router.navigate([`/advanced-search?term=${this.searchForm.value.searchTerm}`]);
+    this.router.navigate([`advanced-search`], {
+      queryParams: {
+        term: this.searchForm.value.searchTerm
+      }
+    });
   }
 }

@@ -3,9 +3,10 @@
     <h2>Search for products</h2>
     <h3>Select a product or press enter to do an advanced search</h3>
   </hgroup>
-  <form [formGroup]="searchForm" novalidate (onSubmit)="goToAdvancedSearch()">
+  <form [formGroup]="searchForm" novalidate (submit)="goToAdvancedSearch()">
     <input formControlName="searchTerm" type="search" id="search" name="search" placeholder="Search a product..." autocomplete="off">
     <div class="results" *ngIf="(searchResults$ | async) as results">
+      <div *ngIf="!results?.length">No results found...</div>
       <ul>
         <li *ngFor="let result of results">
           <a routerLink="/product/{{result.id}}">{{result.title}}</a></li>

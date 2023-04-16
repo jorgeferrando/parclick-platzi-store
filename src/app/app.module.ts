@@ -8,11 +8,16 @@ import {SearchService} from "./services/search.service";
 import {RestSearchService} from "./repositories/rest-search.service";
 import {HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
+import { AdvancedSearchPageComponent } from './pages/advanced-search-page/advanced-search-page.component';
+import { ProductPageComponent } from './pages/product-page/product-page.component';
+import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomePageComponent
+    HomePageComponent,
+    AdvancedSearchPageComponent,
+    ProductPageComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -21,10 +26,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     AppRoutingModule
   ],
   providers: [
-    {
-      provide: SearchService,
-      useClass: RestSearchService
-    }
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    { provide: SearchService, useClass: RestSearchService }
   ],
   bootstrap: [AppComponent]
 })
