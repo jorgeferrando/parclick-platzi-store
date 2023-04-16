@@ -1,10 +1,10 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
-import {debounceTime, distinctUntilChanged, switchMap} from "rxjs/operators";
+import {catchError, debounceTime, distinctUntilChanged, finalize, switchMap, tap} from "rxjs/operators";
 import {SearchService} from "../../services/search.service";
-import {Observable, of} from "rxjs";
+import {BehaviorSubject, Observable, of, throwError} from "rxjs";
 import {Product} from "../../models/product.type";
-import {NavigationExtras, Router} from "@angular/router";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home-page-component',
@@ -12,23 +12,36 @@ import {NavigationExtras, Router} from "@angular/router";
   styleUrls: ['./home-page.component.sass']
 })
 export class HomePageComponent implements AfterViewInit {
-  searchResults$: Observable<Product[]> = of([] as Product[]);
   searchForm = new FormGroup({
     searchTerm: new FormControl('')
   })
-
+  searchResults$: Observable<Product[]> = this.searchForm.valueChanges.pipe(
+    debounceTime(1000),
+    distinctUntilChanged(),
+    tap(() => {
+      this.loading$.next(true);
+      this.error$.next(null) }
+    ),
+    switchMap((form: any) => {
+      return this.searchService.search(form);
+    }),
+    catchError((err) => {
+      this.error$.next(err.message);
+      this.loading$.next(false);
+      return throwError(err);
+    }),
+    tap(() => {
+      this.loading$.next(false);
+    })
+  );
+  loading$ = new BehaviorSubject(false);
+  error$ = new BehaviorSubject(null);
   constructor(private searchService: SearchService, private router: Router) {
   }
 
 
   ngAfterViewInit(): void {
-    this.searchResults$ = this.searchForm.valueChanges.pipe(
-      debounceTime(1000),
-      distinctUntilChanged(),
-      switchMap((form: any) => {
-        return this.searchService.search(form);
-      })
-    )
+
   }
 
   goToAdvancedSearch() {

@@ -5,6 +5,10 @@
   </hgroup>
   <form [formGroup]="searchForm" novalidate (submit)="goToAdvancedSearch()">
     <input class="homePage__search" formControlName="searchTerm" type="search" id="search" name="search" placeholder="Search a product..." autocomplete="off">
+    <div class="homePage__loading" *ngIf="loading$ | async">Loading data...</div>
+    <ng-container *ngIf="(error$ | async) as error">
+      <div class="homePage__error" >We got an error: {{error}}</div>
+    </ng-container>
     <div class="homePage__results" *ngIf="(searchResults$ | async) as results">
       <div class="homePage__results__notFound" *ngIf="!results?.length">No results found...</div>
       <ul class="homePage__results__list">

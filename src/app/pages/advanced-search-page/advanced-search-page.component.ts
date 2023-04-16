@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import {SearchService} from "../../services/search.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {Observable, of} from "rxjs";
 import {Product} from "../../models/product.type";
 import {FormControl, FormGroup} from "@angular/forms";
 import {debounceTime, distinctUntilChanged, map, switchMap} from "rxjs/operators";
+import {CategoryService} from "../../services/category.service";
+import {Category} from "../../models/category.type";
 
 export interface AdvacedSearchQueryParams {
   title: string;
@@ -20,34 +22,21 @@ export interface AdvacedSearchQueryParams {
 })
 export class AdvancedSearchPageComponent {
     searchResults$: Observable<Product[]> = of([] as Product[]);
-    searchForm = new FormGroup({
-      title: new FormControl(''),
-      price_min: new FormControl(0),
-      price_max: new FormControl(0),
-      categoryId: new FormControl(0)
-    });
-    constructor(private searchService: SearchService, private activatedRoute: ActivatedRoute, private router: Router) {
+    categories$: Observable<Category[]> = of([] as Category[]);
+    constructor(
+      private searchService: SearchService,
+      private categoryService: CategoryService,
+      private activatedRoute: ActivatedRoute,
+      private router: Router) {
     }
 
     ngOnInit() {
+      this.categories$ = this.categoryService.getAll();
       this.searchResults$ = this.activatedRoute.queryParams.pipe(
         switchMap((params) => this.searchService.search(params))
       );
-      this.searchForm.valueChanges.pipe(
-        debounceTime(500),
-        distinctUntilChanged(),
-        map(form => {
-          let queryParams = {} as Partial<AdvacedSearchQueryParams>;
-          queryParams.title = form.title || undefined;
-          if ((form.price_min || 0) < (form.price_max || 0)) {
-            queryParams.price_min = form.price_min || 0;
-            queryParams.price_max = form.price_max || 0;
-          }
-          queryParams.categoryId = form.categoryId || undefined;
-          return queryParams
-        })
-      ).subscribe(queryParams => {
-        this.router.navigate(['/advanced-search'], { queryParams });
-      })
+    }
+    onQueryParams(queryParams: Params) {
+      this.router.navigate(['/advanced-search'], { queryParams });
     }
 }

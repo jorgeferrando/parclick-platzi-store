@@ -1,25 +1,7 @@
 <main class="main splitview">
   <aside class="splitview__sidebar">
     <h5 class="splitview__sidebar__title">Advanced Search</h5>
-    <form [formGroup]="searchForm">
-      <label for="search">Title
-        <input type="text" id="search" name="search" placeholder="Search a product..." autocomplete="off" formControlName="title">
-      </label>
-      <label for="min-price">Min. Price
-        <input type="number" id="min-price" name="min-price" placeholder="Min. Price" autocomplete="off" min="0" formControlName="price_min">
-      </label>
-      <label for="max-price">Max. Price
-        <input type="number" id="max-price" name="max-price" placeholder="Max. Price" autocomplete="off" min="0" formControlName="price_max">
-      </label>
-      <label for="category">Categories
-        <select id="category" formControlName="categoryId">
-          <option value="" selected>Select a category…</option>
-          <option value="1">Category 1</option>
-          <option value="2">Category 2</option>
-          <option value="3">Category 3</option>
-        </select>
-      </label>
-    </form>
+    <app-advanced-filter (queryParams)="onQueryParams($event)" [categories]="categories$ | async"></app-advanced-filter>
   </aside>
   <section class="splitview__content">
     <ng-container *ngIf="searchResults$ | async as results">

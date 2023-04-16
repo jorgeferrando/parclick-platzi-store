@@ -17,6 +17,7 @@ import { ImageNotFoundPipe } from './pipes/image-not-found.pipe';
 import { ProductComponent } from './components/product/product.component';
 import {ProductService} from "./services/product.service";
 import {RestProductService} from "./repositories/rest-product.service";
+import {AdvancedFilterComponent} from "./components/advanced-filter/advanced-filter.component";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {RestProductService} from "./repositories/rest-product.service";
     AdvancedSearchPageComponent,
     ProductPageComponent,
     ImageNotFoundPipe,
-    ProductComponent
+    ProductComponent,
+    AdvancedFilterComponent
   ],
   imports: [
     ReactiveFormsModule,
