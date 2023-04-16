@@ -1,1 +1,5 @@
-<p>product-page works!</p>
+<main class="main">
+  <app-product [product]="product$ | async">
+    <button>Buy!</button>
+  </app-product>
+</main>

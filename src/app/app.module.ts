@@ -15,6 +15,8 @@ import {CategoryService} from "./services/category.service";
 import {RestCategoryService} from "./repositories/rest-category.service";
 import { ImageNotFoundPipe } from './pipes/image-not-found.pipe';
 import { ProductComponent } from './components/product/product.component';
+import {ProductService} from "./services/product.service";
+import {RestProductService} from "./repositories/rest-product.service";
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { ProductComponent } from './components/product/product.component';
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: SearchService, useClass: RestSearchService },
-    { provide: CategoryService, useClass: RestCategoryService }
+    { provide: CategoryService, useClass: RestCategoryService },
+    { provide: ProductService, useClass: RestProductService }
   ],
   bootstrap: [AppComponent]
 })
