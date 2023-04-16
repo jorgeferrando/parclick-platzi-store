@@ -1,10 +1,10 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component} from '@angular/core';
-import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from "rxjs/operators";
-import {BehaviorSubject, Observable, throwError} from "rxjs";
-import {Product} from "../../models/product.type";
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {catchError, debounceTime, distinctUntilChanged, map, startWith, switchMap} from "rxjs/operators";
+import {Observable, of} from "rxjs";
 import {Router} from "@angular/router";
 import {FormControl, FormGroup} from "@angular/forms";
 import {ProductService} from "../../repositories/product/product.service";
+import {AppState} from "../../models/app-state.type";
 
 @Component({
   selector: 'app-home-page-component',
@@ -13,43 +13,28 @@ import {ProductService} from "../../repositories/product/product.service";
   changeDetection: ChangeDetectionStrategy.OnPush,
 
 })
-export class HomePageComponent implements AfterViewInit {
+export class HomePageComponent {
   searchForm = new FormGroup({
-    searchTerm: new FormControl('')
+    title: new FormControl('')
   })
-  searchResults$: Observable<Product[]> = this.searchForm.valueChanges.pipe(
+  appState$: Observable<AppState> = this.searchForm.valueChanges.pipe(
     debounceTime(1000),
     distinctUntilChanged(),
-    tap(() => {
-      this.loading$.next(true);
-      this.error$.next(null) }
-    ),
     switchMap((form: any) => {
-      return this.productService.search(form);
+      return this.productService.search(form).pipe(
+        map((value) => ({loading: false, data: value, error: null})),
+        catchError((error) => of({loading: false, error: error.message, data: []})),
+        startWith({loading: true, error: null, data: []})
+      );
     }),
-    catchError((err) => {
-      this.error$.next(err.message);
-      this.loading$.next(false);
-      return throwError(err);
-    }),
-    tap(() => {
-      this.loading$.next(false);
-    })
+    startWith({loading: false})
   );
-  loading$ = new BehaviorSubject(false);
-  error$ = new BehaviorSubject(null);
-  constructor(private productService: ProductService, private router: Router) {
-  }
-
-
-  ngAfterViewInit(): void {
-
-  }
+  constructor(private productService: ProductService, private router: Router) {}
 
   goToAdvancedSearch() {
     this.router.navigate([`advanced-search`], {
       queryParams: {
-        term: this.searchForm.value.searchTerm
+        title: this.searchForm.value.title
       }
     });
   }

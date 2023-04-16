@@ -1,8 +1,9 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {catchError, map, switchMap, tap} from "rxjs/operators";
+import {catchError, map, startWith, switchMap} from "rxjs/operators";
 import {ProductService} from "../../repositories/product/product.service";
-import {BehaviorSubject, throwError} from "rxjs";
+import {Observable, of} from "rxjs";
+import {AppState} from "../../models/app-state.type";
 
 @Component({
   selector: 'app-product-page',
@@ -11,23 +12,13 @@ import {BehaviorSubject, throwError} from "rxjs";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductPageComponent {
-  loading$ = new BehaviorSubject(false);
-  error$ = new BehaviorSubject(null);
-  product$ = this.activatedRoute.params.pipe(
-    tap(() => {
-      this.loading$.next(true);
-      this.error$.next(null) }
-    ),
+  appState$: Observable<AppState> = this.activatedRoute.params.pipe(
     map(params => +params['id']),
-    switchMap(id => this.productService.getById(id)),
-    catchError((err) => {
-      this.error$.next(err.message);
-      this.loading$.next(false);
-      return throwError(err);
-    }),
-    tap(() => {
-      this.loading$.next(false);
-    })
+    switchMap(id => this.productService.getById(id).pipe(
+      map((value) => ({loading: false, data: value})),
+      catchError(error => of({loading: false, error: error.message})),
+      startWith({loading: true})
+    )),
   );
 
   constructor(private activatedRoute: ActivatedRoute, private productService: ProductService) {
