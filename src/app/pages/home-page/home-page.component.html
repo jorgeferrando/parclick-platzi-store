@@ -1,14 +1,14 @@
-<main>
-  <hgroup>
-    <h2>Search for products</h2>
-    <h3>Select a product or press enter to do an advanced search</h3>
+<main class="main homePage">
+  <hgroup class="homePage__titlegroup">
+    <h2 class="homePage__titlegroup__primary">Search for products</h2>
+    <h3 class="homePage__titlegroup__secondary">Select a product or press enter to do an advanced search</h3>
   </hgroup>
   <form [formGroup]="searchForm" novalidate (submit)="goToAdvancedSearch()">
-    <input formControlName="searchTerm" type="search" id="search" name="search" placeholder="Search a product..." autocomplete="off">
-    <div class="results" *ngIf="(searchResults$ | async) as results">
-      <div *ngIf="!results?.length">No results found...</div>
-      <ul>
-        <li *ngFor="let result of results">
+    <input class="homePage__search" formControlName="searchTerm" type="search" id="search" name="search" placeholder="Search a product..." autocomplete="off">
+    <div class="homePage__results" *ngIf="(searchResults$ | async) as results">
+      <div class="homePage__results__notFound" *ngIf="!results?.length">No results found...</div>
+      <ul class="homePage__results__list">
+        <li class="homePage__results__list__item" *ngFor="let result of results">
           <a routerLink="/product/{{result.id}}">{{result.title}}</a></li>
       </ul>
     </div>
