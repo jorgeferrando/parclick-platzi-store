@@ -1,6 +1,25 @@
 <main>
   <section>
-    content 1
+    <form>
+      <label for="search">Title
+        <input type="text" id="search" name="search" placeholder="Search a product..." autocomplete="off">
+      </label>
+      <div class="grid">
+        <label for="min-price">Min. Price
+          <input type="number" id="min-price" name="min-price" placeholder="Min. Price" autocomplete="off" min="0">
+        </label>
+        <label for="max-price">Min. Price
+          <input type="number" id="max-price" name="max-price" placeholder="Max. Price" autocomplete="off" min="0">
+        </label>
+      </div>
+      <label for="category">Categories</label>
+      <select id="category">
+        <option value="" selected>Select a category…</option>
+        <option value="1">Category 1</option>
+        <option value="2">Category 2</option>
+        <option value="3">Category 3</option>
+      </select>
+    </form>
   </section>
   <section>
     <ng-container *ngIf="searchResults$ | async as results">

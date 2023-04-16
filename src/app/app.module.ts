@@ -11,6 +11,8 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { AdvancedSearchPageComponent } from './pages/advanced-search-page/advanced-search-page.component';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
+import {CategoryService} from "./services/category.service";
+import {RestCategoryService} from "./repositories/rest-category.service";
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import {HashLocationStrategy, LocationStrategy} from "@angular/common";
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-    { provide: SearchService, useClass: RestSearchService }
+    { provide: SearchService, useClass: RestSearchService },
+    { provide: CategoryService, useClass: RestCategoryService }
   ],
   bootstrap: [AppComponent]
 })

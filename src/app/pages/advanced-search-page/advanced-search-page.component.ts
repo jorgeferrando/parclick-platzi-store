@@ -17,6 +17,6 @@ export class AdvancedSearchPageComponent {
     ngOnInit() {
       this.searchResults$ = this.activatedRoute.queryParams.pipe(
         switchMap((params) => this.searchService.search(params['term']))
-      )
+      );
     }
 }
