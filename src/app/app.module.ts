@@ -14,6 +14,7 @@ import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 import {CategoryService} from "./services/category.service";
 import {RestCategoryService} from "./repositories/rest-category.service";
 import { ImageNotFoundPipe } from './pipes/image-not-found.pipe';
+import { ProductComponent } from './components/product/product.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ImageNotFoundPipe } from './pipes/image-not-found.pipe';
     HomePageComponent,
     AdvancedSearchPageComponent,
     ProductPageComponent,
-    ImageNotFoundPipe
+    ImageNotFoundPipe,
+    ProductComponent
   ],
   imports: [
     ReactiveFormsModule,
