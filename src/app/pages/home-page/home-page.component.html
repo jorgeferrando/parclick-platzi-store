@@ -1,1 +1,17 @@
-<input type="search" id="search" name="search" placeholder="Search a product...">
+<main>
+  <hgroup>
+    <h2>Search for products</h2>
+    <h3>Select a product or press enter to do an advanced search</h3>
+  </hgroup>
+  <form [formGroup]="searchForm" novalidate (onSubmit)="goToAdvancedSearch()">
+    <input formControlName="searchTerm" type="search" id="search" name="search" placeholder="Search a product..." autocomplete="off">
+    <div class="results" *ngIf="(searchResults$ | async) as results">
+      <ul>
+        <li *ngFor="let result of results">
+          <a routerLink="/product/{{result.id}}">{{result.title}}</a></li>
+      </ul>
+    </div>
+  </form>
+</main>
+
+
