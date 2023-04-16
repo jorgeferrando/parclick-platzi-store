@@ -26,7 +26,7 @@ export class HomePageComponent implements AfterViewInit {
       debounceTime(1000),
       distinctUntilChanged(),
       switchMap((form: any) => {
-        return this.searchService.search(form['searchTerm'] || '');
+        return this.searchService.search(form);
       })
     )
   }

@@ -13,13 +13,15 @@ import { ProductPageComponent } from './pages/product-page/product-page.componen
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 import {CategoryService} from "./services/category.service";
 import {RestCategoryService} from "./repositories/rest-category.service";
+import { ImageNotFoundPipe } from './pipes/image-not-found.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
     AdvancedSearchPageComponent,
-    ProductPageComponent
+    ProductPageComponent,
+    ImageNotFoundPipe
   ],
   imports: [
     ReactiveFormsModule,

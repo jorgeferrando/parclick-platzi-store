@@ -1,19 +1,20 @@
 <main>
   <section>
-    <form>
+    <form [formGroup]="searchForm">
+      <h5>Advanced Search</h5>
       <label for="search">Title
-        <input type="text" id="search" name="search" placeholder="Search a product..." autocomplete="off">
+        <input type="text" id="search" name="search" placeholder="Search a product..." autocomplete="off" formControlName="searchTerm">
       </label>
       <div class="grid">
         <label for="min-price">Min. Price
-          <input type="number" id="min-price" name="min-price" placeholder="Min. Price" autocomplete="off" min="0">
+          <input type="number" id="min-price" name="min-price" placeholder="Min. Price" autocomplete="off" min="0" formControlName="minPrice">
         </label>
-        <label for="max-price">Min. Price
-          <input type="number" id="max-price" name="max-price" placeholder="Max. Price" autocomplete="off" min="0">
+        <label for="max-price">Max. Price
+          <input type="number" id="max-price" name="max-price" placeholder="Max. Price" autocomplete="off" min="0" formControlName="maxPrice">
         </label>
       </div>
       <label for="category">Categories</label>
-      <select id="category">
+      <select id="category" formControlName="categoryId">
         <option value="" selected>Select a category…</option>
         <option value="1">Category 1</option>
         <option value="2">Category 2</option>
@@ -25,7 +26,22 @@
     <ng-container *ngIf="searchResults$ | async as results">
       <div *ngIf="!results">Searching...</div>
       <div *ngIf="results && !results.length">No results found...</div>
-      <pre *ngIf="results && results.length > 0">{{ searchResults$ | async |json }}</pre>
+      <div class="grid" *ngIf="results && results.length > 0">
+        <div *ngFor="let product of results">
+          <header><h4>{{product.title}}</h4></header>
+          <div class="content">
+            <img [src]="product.images[0] | imageNotFound">
+            <p>
+              <strong>Category: </strong>Category 1
+            </p>
+            <p>Price: {{product.price}} €</p>
+            <p style="padding: 0 1rem">{{product.description}}</p>
+          </div>
+          <footer>
+            <a role="button" routerLink="/product/{{product.id}}">Product Details</a>
+          </footer>
+        </div>
+      </div>
     </ng-container>
   </section>
 </main>
