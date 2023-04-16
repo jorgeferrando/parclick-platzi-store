@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {HomePageComponent} from "./pages/home-page/home-page.component";
-import {AdvancedSearchPageComponent} from "./pages/advanced-search-page/advanced-search-page.component";
-import {ProductPageComponent} from "./pages/product-page/product-page.component";
 
 const routes: Routes = [
   {
-    path: "", pathMatch: "full", component: HomePageComponent
+    path: "", pathMatch: "full",
+    loadChildren: () => import('./pages/home-page/home-page.module').then((x) => x.HomePageModule)
   },
   {
-    path: "advanced-search", component: AdvancedSearchPageComponent
+    path: "advanced-search",
+    loadChildren: () => import('./pages/advanced-search-page/advanced-search-page.module').then((x) => x.AdvancedSearchPageModule)
   },
   {
-    path: "product/:id", component: ProductPageComponent
+    path: "product/:id",
+    loadChildren: () => import('./pages/product-page/product-page.module').then((x) => x.ProductPageModule)
   },
   { path: "**", redirectTo: "/" },
 ];

@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {catchError, map, switchMap, tap} from "rxjs/operators";
-import {ProductService} from "../../services/product.service";
+import {ProductService} from "../../repositories/product/product.service";
 import {BehaviorSubject, throwError} from "rxjs";
 
 @Component({
   selector: 'app-product-page',
   templateUrl: './product-page.component.html',
-  styleUrls: ['./product-page.component.sass']
+  styleUrls: ['./product-page.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductPageComponent {
   loading$ = new BehaviorSubject(false);

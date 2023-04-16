@@ -1,15 +1,17 @@
-import {AfterViewInit, Component} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
-import {catchError, debounceTime, distinctUntilChanged, finalize, switchMap, tap} from "rxjs/operators";
-import {SearchService} from "../../services/search.service";
-import {BehaviorSubject, Observable, of, throwError} from "rxjs";
+import {AfterViewInit, ChangeDetectionStrategy, Component} from '@angular/core';
+import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from "rxjs/operators";
+import {BehaviorSubject, Observable, throwError} from "rxjs";
 import {Product} from "../../models/product.type";
 import {Router} from "@angular/router";
+import {FormControl, FormGroup} from "@angular/forms";
+import {ProductService} from "../../repositories/product/product.service";
 
 @Component({
   selector: 'app-home-page-component',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.sass']
+  styleUrls: ['./home-page.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class HomePageComponent implements AfterViewInit {
   searchForm = new FormGroup({
@@ -23,7 +25,7 @@ export class HomePageComponent implements AfterViewInit {
       this.error$.next(null) }
     ),
     switchMap((form: any) => {
-      return this.searchService.search(form);
+      return this.productService.search(form);
     }),
     catchError((err) => {
       this.error$.next(err.message);
@@ -36,7 +38,7 @@ export class HomePageComponent implements AfterViewInit {
   );
   loading$ = new BehaviorSubject(false);
   error$ = new BehaviorSubject(null);
-  constructor(private searchService: SearchService, private router: Router) {
+  constructor(private productService: ProductService, private router: Router) {
   }
 
 

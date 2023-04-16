@@ -1,9 +1,9 @@
 <div class="product" *ngIf="product">
   <header class="product__header">{{product.title}}</header>
   <div class="product__body">
-    <img class="product__image" [src]="product.images[0] | imageNotFound">
+    <img class="product__image" [src]="(product.images[0] || '') | imageNotFound">
     <p class="product__category">
-      <strong>Category: </strong>{{product.category?.name}}
+      <strong>Category: </strong>{{product.category.name}}
     </p>
     <p class="product__price">Price: {{product.price}} €</p>
     <p class="product__description">{{product.description.slice(0,100)}} ...</p>

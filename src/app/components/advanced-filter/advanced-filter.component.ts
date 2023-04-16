@@ -1,15 +1,14 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {debounceTime, distinctUntilChanged, map} from "rxjs/operators";
-import {AdvacedSearchQueryParams} from "../../pages/advanced-search-page/advanced-search-page.component";
-import {Observable, of} from "rxjs";
+import { AdvacedSearchQueryParams } from 'src/app/models/advanced-search-query-params.type';
 import {Category} from "../../models/category.type";
-import {CategoryService} from "../../services/category.service";
 
 @Component({
   selector: 'app-advanced-filter',
   templateUrl: './advanced-filter.component.html',
-  styleUrls: ['./advanced-filter.component.sass']
+  styleUrls: ['./advanced-filter.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdvancedFilterComponent {
   @Output() queryParams = new EventEmitter();

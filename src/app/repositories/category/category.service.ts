@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Category} from "../models/category.type";
+import {Category} from "../../models/category.type";
 import {Observable, of} from "rxjs";
 
 @Injectable()
