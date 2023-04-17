@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/parclick-platzi-store",
+            "outputPath": "dist/parclick-platzi-store/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -82,6 +82,60 @@
             "styles": ["src/styles.sass"],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/parclick-platzi-store/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "inlineStyleLanguage": "sass"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "parclick-platzi-store:build:development",
+              "serverTarget": "parclick-platzi-store:server:development"
+            },
+            "production": {
+              "browserTarget": "parclick-platzi-store:build:production",
+              "serverTarget": "parclick-platzi-store:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "parclick-platzi-store:build:production",
+              "serverTarget": "parclick-platzi-store:server:production"
+            },
+            "development": {
+              "browserTarget": "parclick-platzi-store:build:development",
+              "serverTarget": "parclick-platzi-store:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
