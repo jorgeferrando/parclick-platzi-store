@@ -2,6 +2,11 @@
   <div *ngIf="state.error">We have an error: {{ state.error }}</div>
   <div *ngIf="state.loading">Loading product...</div>
   <app-product [product]="state.data" *ngIf="!state.error && !state.loading">
-    <button>Buy!</button>
+    <section image class="carousel">
+      <img *ngFor="let im of state.data.images"
+           class="product__image"
+           [src]="state.data.images[0] || '' | imageNotFound" />
+    </section>
+    <button footer>Buy!</button>
   </app-product>
 </main>

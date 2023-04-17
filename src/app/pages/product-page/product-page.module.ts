@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProductModule } from '../../components/product/product.module';
 import { ProductRepositoryModule } from '../../repositories/product/product-repository.module';
 import { CommonModule } from '@angular/common';
+import { ImageNotFoundPipeModule } from '../../pipes/image-not-found.pipe.module';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     ProductModule,
     ProductRepositoryModule,
+    ImageNotFoundPipeModule,
     RouterModule.forChild([{ path: '', component: ProductPageComponent }]),
   ],
   declarations: [ProductPageComponent],

@@ -19,10 +19,12 @@
       <ng-container *ngIf="state.error">
         <div class="homePage__error">We got an error: {{ state.error }}</div>
       </ng-container>
-      <div class="homePage__results" *ngIf="!state.loading && state.data">
-        <div class="homePage__results__notFound" *ngIf="!state.data?.length">
-          No results found...
-        </div>
+      <div class="homePage__results" *ngIf="searchForm.dirty && !state.loading && state.data">
+        <ng-container  *ngIf="!state.data?.length">
+          <div class="homePage__results__notFound">
+            No results found...
+          </div>
+        </ng-container>
         <ul class="homePage__results__list">
           <ng-container *ngFor="let item of state.data">
             <li

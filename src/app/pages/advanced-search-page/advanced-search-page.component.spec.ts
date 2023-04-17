@@ -17,7 +17,7 @@ import { CategoryService } from '../../repositories/category/category.service';
 import { Category } from '../../models/category.type';
 import { AdvancedFilterComponent } from '../../components/advanced-filter/advanced-filter.component';
 import { ProductComponent } from '../../components/product/product.component';
-import { ImageNotFoundPipe } from '../../components/product/image-not-found.pipe';
+import { ImageNotFoundPipe } from '../../pipes/image-not-found.pipe';
 import { AdvacedSearchQueryParams } from '../../models/advanced-search-query-params.type';
 
 const mockData = [

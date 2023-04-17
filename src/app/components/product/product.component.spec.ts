@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProductComponent } from './product.component';
 import { Component, ViewChild } from '@angular/core';
 import { Product } from '../../models/product.type';
-import { ImageNotFoundPipe } from './image-not-found.pipe';
+import { ImageNotFoundPipe } from '../../pipes/image-not-found.pipe';
 
 const testProduct: Product = {
   id: 4,
@@ -23,7 +23,10 @@ const testProduct: Product = {
 
 @Component({
   selector: 'test-component',
-  template: `<app-product [product]="product"></app-product>`,
+  template: `<app-product [product]="product">
+    <img image data-testid="image" [src]="product.images[0]" />
+    <div footer>footer</div>
+  </app-product>`,
 })
 class TestComponent {
   @ViewChild(ProductComponent)
@@ -51,10 +54,9 @@ describe('ProductComponent', () => {
     );
     expect(title.textContent).toBe(testProduct.title);
   });
-  it('should display first image', () => {
-    const image: HTMLImageElement = fixture.nativeElement.querySelector(
-      "[data-testid='image']"
-    );
+  it('should display image slot', () => {
+    const image: HTMLImageElement =
+      fixture.nativeElement.querySelector('[image]');
     expect(image.src).toBe(testProduct.images[0]);
   });
   it('should display category name', () => {
@@ -76,5 +78,9 @@ describe('ProductComponent', () => {
     expect(description.textContent).toBe(
       `${testProduct.description.slice(0, 100)} ... `
     );
+  });
+  it('should display footer slot', () => {
+    const footer: HTMLElement = fixture.nativeElement.querySelector('[footer]');
+    expect(footer.textContent).toBe('footer');
   });
 });

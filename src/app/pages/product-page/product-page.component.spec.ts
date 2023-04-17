@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../../repositories/category/category.service';
 import { Category } from '../../models/category.type';
 import { ProductComponent } from '../../components/product/product.component';
-import { ImageNotFoundPipe } from '../../components/product/image-not-found.pipe';
+import { ImageNotFoundPipe } from '../../pipes/image-not-found.pipe';
 import { AdvacedSearchQueryParams } from '../../models/advanced-search-query-params.type';
 import { ProductPageComponent } from './product-page.component';
 

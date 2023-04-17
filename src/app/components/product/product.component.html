@@ -1,9 +1,7 @@
 <div class="product" *ngIf="product">
   <header class="product__header" data-testid="title">{{ product.title }}</header>
   <div class="product__body">
-    <img data-testid="image"
-      class="product__image"
-      [src]="product.images[0] || '' | imageNotFound" />
+    <ng-content select="[image]"></ng-content>
     <p class="product__category" data-testid="category">
       <strong>Category: </strong>{{ product.category.name }}
     </p>
@@ -12,6 +10,6 @@
     </p>
   </div>
   <footer class="product__footer">
-    <ng-content></ng-content>
+    <ng-content select="[footer]"></ng-content>
   </footer>
 </div>
