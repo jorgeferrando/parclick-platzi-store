@@ -1,21 +1,35 @@
 <main class="main homePage">
   <hgroup class="homePage__titlegroup">
     <h2 class="homePage__titlegroup__primary">Search for products</h2>
-    <h3 class="homePage__titlegroup__secondary">Select a product or press enter to do an advanced search</h3>
+    <h3 class="homePage__titlegroup__secondary">
+      Select a product or press enter to do an advanced search
+    </h3>
   </hgroup>
-  <ng-container *ngIf="(appState$ | async) as state">
+  <ng-container *ngIf="appState$ | async as state">
     <form [formGroup]="searchForm" novalidate (submit)="goToAdvancedSearch()">
-      <input class="homePage__search" formControlName="title" type="search" id="search" name="search" placeholder="Search a product..." autocomplete="off">
+      <input
+        class="homePage__search"
+        formControlName="title"
+        type="search"
+        id="search"
+        name="search"
+        placeholder="Search a product..."
+        autocomplete="off" />
       <div class="homePage__loading" *ngIf="state.loading">Loading data...</div>
       <ng-container *ngIf="state.error">
-        <div class="homePage__error" >We got an error: {{state.error}}</div>
+        <div class="homePage__error">We got an error: {{ state.error }}</div>
       </ng-container>
       <div class="homePage__results" *ngIf="!state.loading && state.data">
-        <div class="homePage__results__notFound" *ngIf="!state.data?.length">No results found...</div>
+        <div class="homePage__results__notFound" *ngIf="!state.data?.length">
+          No results found...
+        </div>
         <ul class="homePage__results__list">
-          <ng-container  *ngFor="let item of state.data">
-            <li role="link" routerLink="/product/{{item.id}}" class="homePage__results__list__item">
-              {{item.title}}
+          <ng-container *ngFor="let item of state.data">
+            <li
+              role="link"
+              routerLink="/product/{{ item.id }}"
+              class="homePage__results__list__item">
+              {{ item.title }}
             </li>
           </ng-container>
         </ul>
@@ -23,5 +37,3 @@
     </form>
   </ng-container>
 </main>
-
-

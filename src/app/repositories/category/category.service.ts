@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import {Category} from "../../models/category.type";
-import {Observable, of} from "rxjs";
+import { Category } from '../../models/category.type';
+import { Observable, of } from 'rxjs';
 
 @Injectable()
 export abstract class CategoryService {
-
-  protected constructor() { }
+  protected constructor() {}
 
   getAll(): Observable<Category[]> {
-    return of([] as Category[])
+    return of([] as Category[]);
   }
 }

@@ -1,7 +1,9 @@
 <main class="main splitview">
   <aside class="splitview__sidebar">
     <h5 class="splitview__sidebar__title">Advanced Search</h5>
-    <app-advanced-filter (queryParams)="onQueryParams($event)" [categories]="categories$ | async"></app-advanced-filter>
+    <app-advanced-filter
+      (queryParams)="onQueryParams($event)"
+      [categories]="categories$ | async"></app-advanced-filter>
   </aside>
   <section class="splitview__content">
     <ng-container *ngIf="appState$ | async as state">
@@ -10,7 +12,9 @@
       <div class="resultsGrid" *ngIf="state.data && state.data.length > 0">
         <ng-container *ngFor="let item of state.data">
           <app-product [product]="item">
-            <a role="button" routerLink="/product/{{item.id}}">Product Details</a>
+            <a role="button" routerLink="/product/{{ item.id }}"
+              >Product Details</a
+            >
           </app-product>
         </ng-container>
       </div>
