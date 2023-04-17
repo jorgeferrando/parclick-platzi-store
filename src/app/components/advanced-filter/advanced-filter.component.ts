@@ -44,4 +44,8 @@ export class AdvancedFilterComponent {
         this.queryParams.emit(queryParams);
       });
   }
+
+  trackByCategories(index: number, category: Category): number {
+    return category.id;
+  }
 }

@@ -10,7 +10,7 @@
       <div *ngIf="state.loading">Searching...</div>
       <div *ngIf="state.data && !state.data.length">No results found...</div>
       <div class="resultsGrid" *ngIf="state.data && state.data.length > 0">
-        <ng-container *ngFor="let item of state.data">
+        <ng-container *ngFor="let item of state.data; trackBy:trackByProducts">
           <app-product [product]="item">
             <img image data-testid="image"
                  class="product__image"

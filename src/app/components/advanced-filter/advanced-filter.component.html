@@ -35,7 +35,7 @@
     >Categories
     <select id="category" formControlName="categoryId">
       <option value="0" selected>Select a category…</option>
-      <option *ngFor="let category of categories" value="{{ category.id }}">
+      <option *ngFor="let category of categories; trackBy: trackByCategories" value="{{ category.id }}">
         {{ category.name }}
       </option>
     </select>

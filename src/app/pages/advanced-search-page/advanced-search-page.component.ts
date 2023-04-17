@@ -40,4 +40,7 @@ export class AdvancedSearchPageComponent {
   onQueryParams(queryParams: Params) {
     this.router.navigate(['/advanced-search'], { queryParams });
   }
+  trackByProducts(index: number, product: Product): number {
+    return product.id;
+  }
 }

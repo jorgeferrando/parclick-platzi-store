@@ -3,7 +3,7 @@
   <div *ngIf="state.loading">Loading product...</div>
   <app-product [product]="state.data" *ngIf="!state.error && !state.loading">
     <section image class="carousel">
-      <img *ngFor="let im of state.data.images"
+      <img *ngFor="let im of state.data.images; trackBy: trackByImages"
            class="product__image"
            [src]="state.data.images[0] || '' | imageNotFound" />
     </section>

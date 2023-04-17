@@ -32,4 +32,8 @@ export class ProductPageComponent {
     private activatedRoute: ActivatedRoute,
     private productService: ProductService
   ) {}
+
+  trackByImages(index: number, img: string): string {
+    return img;
+  }
 }

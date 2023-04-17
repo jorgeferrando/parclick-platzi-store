@@ -26,7 +26,7 @@
           </div>
         </ng-container>
         <ul class="homePage__results__list">
-          <ng-container *ngFor="let item of state.data">
+          <ng-container *ngFor="let item of state.data; trackBy: trackByProducts">
             <li
               role="link"
               routerLink="/product/{{ item.id }}"

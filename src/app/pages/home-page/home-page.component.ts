@@ -17,6 +17,7 @@ import {
   setError,
   setLoading,
 } from '../../models/app-state.type';
+import { Product } from '../../models/product.type';
 
 @Component({
   selector: 'app-home-page-component',
@@ -48,5 +49,9 @@ export class HomePageComponent {
         title: this.searchForm.value.title,
       },
     });
+  }
+
+  trackByProducts(index: number, product: Product): number {
+    return product.id;
   }
 }
