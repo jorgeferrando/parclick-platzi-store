@@ -1,0 +1,17 @@
+<div class="product" *ngIf="product">
+  <header class="product__header" data-testid="title">{{ product.title }}</header>
+  <div class="product__body">
+    <img data-testid="image"
+      class="product__image"
+      [src]="product.images[0] || '' | imageNotFound" />
+    <p class="product__category" data-testid="category">
+      <strong>Category: </strong>{{ product.category.name }}
+    </p>
+    <p class="product__price" data-testid="price">Price: {{ product.price }} €</p>
+    <p class="product__description" data-testid="description">{{product.description.slice(0, 100)}} ...
+    </p>
+  </div>
+  <footer class="product__footer">
+    <ng-content></ng-content>
+  </footer>
+</div>

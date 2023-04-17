@@ -1,0 +1,7 @@
+<main class="main" *ngIf="appState$ | async as state">
+  <div *ngIf="state.error">We have an error: {{ state.error }}</div>
+  <div *ngIf="state.loading">Loading product...</div>
+  <app-product [product]="state.data" *ngIf="!state.error && !state.loading">
+    <button>Buy!</button>
+  </app-product>
+</main>
