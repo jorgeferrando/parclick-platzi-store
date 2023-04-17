@@ -19,6 +19,7 @@ import { Category } from '../../models/category.type';
 export class AdvancedFilterComponent {
   @Output() queryParams = new EventEmitter();
   @Input() categories: Category[] | null = [];
+
   searchForm = new FormGroup({
     title: new FormControl(''),
     price_min: new FormControl(0),
@@ -33,15 +34,10 @@ export class AdvancedFilterComponent {
       .pipe(
         debounceTime(500),
         distinctUntilChanged(),
-        map(form => {
-          let queryParams = {} as Partial<AdvacedSearchQueryParams>;
-          queryParams.title = form.title || undefined;
-          if ((form.price_min || 0) < (form.price_max || 0)) {
-            queryParams.price_min = form.price_min || 0;
-            queryParams.price_max = form.price_max || 0;
-          }
-          queryParams.categoryId = form.categoryId || undefined;
-          return queryParams;
+        map(queryParams => {
+          return Object.assign({}, queryParams, {
+            categoryId: +queryParams.categoryId!,
+          });
         })
       )
       .subscribe(queryParams => {

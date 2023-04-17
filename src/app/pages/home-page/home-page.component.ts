@@ -38,9 +38,9 @@ export class HomePageComponent {
         startWith(setLoading(true))
       );
     }),
-    startWith({ loading: false })
+    startWith(setLoading(false))
   );
-  constructor(private productService: ProductService, private router: Router) {}
+  constructor(public productService: ProductService, private router: Router) {}
 
   goToAdvancedSearch() {
     this.router.navigate([`advanced-search`], {
